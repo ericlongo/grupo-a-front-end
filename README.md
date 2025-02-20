@@ -23,6 +23,10 @@ Para rodar o projeto localmente utilizando Docker, siga os passos abaixo:
 
    ```bash
    docker-compose up
+3. Para entrar no containner:
+
+   ```bash
+    docker exec -it front-end-front-end-1 bash
 O projeto estará disponível em http://localhost:3000 (ou na porta configurada no docker-compose.yml).
 
 ### Sem utilizar Docker

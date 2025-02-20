@@ -16,6 +16,9 @@
                   <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password"
                                 v-model="model.password"></v-text-field>
                 </v-form>
+                <div v-if="error" class="layout row justify-center" style="color: red;">
+                  {{ error }}
+                </div>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -30,26 +33,48 @@
 </template>
 
 <script>
+import axios from 'axios';
+
   export default {
     layout: 'default',
     data: () => ({
       loading: false,
       model: {
-        username: 'admin@example.com',
-        password: 'password'
+        username: '',
+        password: ''
       }
     }),
 
     methods: {
-      login() {
-        this.loading = true;
-        setTimeout(() => {
-          this.$router.push('/students/list');
-        }, 1000);
+    async login() {
+      this.loading = true;
+      this.error = '';
+      this.success = false;
+
+      try {
+        const response = await axios.post('http://localhost:3333/login', {
+          email: this.model.username,
+          password: this.model.password
+        });
+        
+        this.success = true;
+        console.log('Resposta da API:', response);
+
+        // localStorage.setItem('token', response.data.token);
+        this.$router.push('/students/list');
+
+      } catch (error) {
+        if (error.response) {
+          this.error = error.response.data.data.message || 'Erro ao fazer login';
+        } else {
+          this.error = 'Erro de conexão. Tente novamente.';
+        }
+      } finally {
+        this.loading = false;
       }
     }
-
-  };
+  }
+};
 </script>
 <style scoped lang="css">
   #login {

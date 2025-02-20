@@ -11,6 +11,7 @@ COPY package*.json ./
 RUN npm install
 RUN npm install -g @vue/cli
 RUN npm install -g esm@latest
+RUN npm intall axios
 
 
 # Copia o restante do código do projeto para o diretório de trabalho

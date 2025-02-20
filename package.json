@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "cross-env": "^5.2.0",
     "esm": "^3.2.25",
     "font-awesome": "^4.7.0",
